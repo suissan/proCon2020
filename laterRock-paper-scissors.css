@@ -6,7 +6,20 @@ body {
   background: linear-gradient(to bottom right, royalblue, #04a6eb, rgba(65, 201, 225, 0.904), #fdffff);
   color: #fdffff;
   font-family: 'Times New Roman', Times, serif;
-  width: 500px;
-  margin-right: auto;
-  margin-left: auto;
+  text-align: center;
+}
+
+.judgment {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  margin:0;
+  padding:0;
+}
+
+.score {
+  margin-left: 60%;
 }
