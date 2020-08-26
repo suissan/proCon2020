@@ -14,6 +14,9 @@ const images = [
   './img/choki.png'  // ちょきの画像
 ];
 
+// 配列の添え字を格納する入れる
+const num = [0, 1, 2];
+
 // CPU 側のじゃんけん表示エリアを作成
 const opponentImage = document.createElement('img');
 
@@ -24,18 +27,14 @@ startButton.onclick = () => {
   startButton.remove();
   //scoreArea.innerText = '0 勝';
 
-  signal();
-  serectedAndJudgment();
-};
-
-
-//「最初はぐーじゃんけん」の呼びかけの処理
-function signal() {
+  //「最初はぐーじゃんけん」の呼びかけの処理
   signalText.innerText = '最初はぐー';
   opponentImage.src = images[0]; // ぐーを固定化
   opponentImage.width = "300";
   opponentImage.height = "300";
   signalImage.appendChild(opponentImage);
+
+  serectedAndJudgment();
 };
 
 
@@ -64,11 +63,13 @@ function serectedAndJudgment() {
     let startTime = Date.now();
 
     // じゃんけんメインエリアの作成
-    for (let i = 0; i < images.length; i++) {
+    for (let i = num.length - 1; i >= 0; i--) {
+      var rand = Math.floor(Math.random() * (i + 1));
+      [num[i], num[rand]] = [num[rand], num[i]]
       let serect = document.createElement('input');
       jankenArea.appendChild(serect);
       serect.type = "image";
-      serect.src = images[i]; // iを添え字として画像を表示
+      serect.src = images[num[i]]; // iを添え字として画像を表示
       serect.width = "300";
       serect.height = "300";
       serect.onclick = () => {
@@ -78,12 +79,11 @@ function serectedAndJudgment() {
         if ((Date.now() - startTime) > 1000) { // 2秒以内に押せないなら時間切れ
           judgment.style.display = '';
           judgment.src = './img/time.png'; // 時間切れ
-
-        } else if (imageNo === i) {
+        } else if (imageNo === num[i]) {
           judgment.style.display = '';
           judgment.src = './img/aiko.png'; // あいこ
           // scoreArea.innerText = 
-        } else if (imageNo === 0 && i === 1 || imageNo === 1 && i === 2 || imageNo === 2 && i === 0) {
+        } else if (imageNo === 0 && num[i] === 1 || imageNo === 1 && num[i] === 2 || imageNo === 2 && num[i] === 0) {
           judgment.style.display = '';
           judgment.src = './img/maru.png';
           //scoreArea.innerText = `${score} 勝`; // 勝ち
