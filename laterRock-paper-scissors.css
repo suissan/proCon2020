@@ -5,8 +5,13 @@ html {
 body {
   background: linear-gradient(to bottom right, royalblue, #04a6eb, rgba(65, 201, 225, 0.904), #fdffff);
   color: #fdffff;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Montserrat","游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
   text-align: center;
+}
+
+.first {
+  font-size: 80px;
+  font-family: "Montserrat","游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
 }
 
 .judgment {
