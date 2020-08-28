@@ -10,6 +10,9 @@ const jankenArea = document.getElementById('janken-area');
 const restartButton = document.getElementById('restart-button');
 
 
+// 関数外は二行、関数内は一行の改行
+
+
 let count = 0; // 勝負数をカウントする変数
 let wins = 0; // 勝った回数をカウントする変数
 
@@ -100,7 +103,7 @@ function serectAndJudgment() {
         jankenArea.children[0].disabled = true; // ぐーを一回限りのボタンに
         jankenArea.children[1].disabled = true; // ぱーを一回限りのボタンに
         jankenArea.children[2].disabled = true; // ちょきを一回限りのボタンに
-        if ((Date.now() - startTime) > 1000) { // 2秒以内に押せないなら時間切れ
+        if ((Date.now() - startTime) > 1000) { // 1秒以内に押せないなら時間切れ
           judgment.style.display = '';
           judgment.src = './img/time.png'; // 時間切れ
         } else if (imageNo === num[i]) {
@@ -115,9 +118,9 @@ function serectAndJudgment() {
           judgment.src = './img/batu.png'; // 負け
         }
         signalTextArea.innerText = "次！";
-        removeAllChildren(jankenArea);
-        removeAllChildren(judgmentArea);
-        removeAllChildren(signalImageArea);
+        removeAllChildren(jankenArea); // じゃんけんカードを削除
+        removeAllChildren(judgmentArea); // 判定画像を削除
+        removeAllChildren(signalImageArea); // 相手用のじゃんけんカードを削除
         serectAndJudgment();
       }
     };
@@ -129,15 +132,14 @@ function serectAndJudgment() {
 startButton.onclick = () => {
 
   let inputNumber = numberOfTimes.value;
-  if (inputNumber.length === 0) {
-    return // 数字の入力がなかったら処理を中断
+  if (inputNumber.length === 0 || inputNumber === '0') {
+    return // 入力値が半角数字と0だった場合は処理を中断
   }
 
-  // タイトルとルール文、スタートボタン、インプットエリアを削除
-  title.remove();
-  ruleArea.remove();
-  startButton.remove();
-  numberOfTimes.remove();
+  title.remove(); // タイトルを削除
+  ruleArea.remove(); // ルール文を削除
+  startButton.remove(); // スタートボタンを削除
+  numberOfTimes.remove(); // インプットエリアを削除
 
   //「最初はぐーじゃんけん」の呼びかけの処理
   signalTextArea.innerText = '最初はぐー';
