@@ -9,10 +9,23 @@
 </head>
 
 <body>
-  <h1 id="title" class="text">後出しじゃんけんゲーム！</h1>
-  <input type="text" id="number-of-times" class="input" placeholder="勝負数を入力「半角数字」">
+  <h1 id="title" class="title">後出しじゃんけんゲーム！</h1>
+  <input type="text" id="number-of-times" class="input" placeholder="勝負数を入力「半角数字」" autocomplete="off">
   <button id="start-button" class="button">スタート</button>
-  <h1 id="signal-text-area"></h1>
+  <h1 id="rule-area" class="rule">
+    ① 遊び方
+    <br>勝負したい回数を入力してスタート（数字以外の場合はエンドレスになります）
+    <br>ランダムで表示されるじゃんけんカードをクリック
+    <br>制限時間は一秒！クリックしてからじゃないと結果が出ないので急ごう
+    <br>② 判定画像解説
+    <br>まる→正解
+    <br>ばつ→不正解
+    <br>あいこ→あいこ
+    <br>ゴング→時間切れ
+    <br>③ 最後に
+    <br>認知症予防にいいかもしれません（後付け設定）
+  </h1>
+  <h1 id="signal-text-area" class="text"></h1>
   <div id="signal-image-area"></div>
   <div id="judgment-area" class="judgment"></div>
   <div id="janken-area"></div>
