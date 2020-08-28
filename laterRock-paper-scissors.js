@@ -103,7 +103,7 @@ function serectAndJudgment() {
         jankenArea.children[0].disabled = true; // ぐーを一回限りのボタンに
         jankenArea.children[1].disabled = true; // ぱーを一回限りのボタンに
         jankenArea.children[2].disabled = true; // ちょきを一回限りのボタンに
-        if ((Date.now() - startTime) > 1200) { // 1.2秒以内に押せないなら時間切れ
+        if ((Date.now() - startTime) > 1000) { // 1秒以内に押せないなら時間切れ
           judgment.style.display = '';
           judgment.src = './img/time.png'; // 時間切れ
         } else if (imageNo === num[i]) {
