@@ -1,11 +1,17 @@
-'use strci';
+'use strict';
 const title = document.getElementById('title');
+const numberOfTimes = document.getElementById('number-of-times');
 const startButton = document.getElementById('start-button');
-const signalText = document.getElementById('signal-text');
-const signalImage = document.getElementById('signal-image');
+const signalTextArea = document.getElementById('signal-text-area');
+const signalImageArea = document.getElementById('signal-image-area');
 const judgmentArea = document.getElementById('judgment-area');
-const scoreArea = document.getElementById('score-area');
 const jankenArea = document.getElementById('janken-area');
+const restartButton = document.getElementById('restart-button');
+
+
+let count = 0; // 勝負数をカウントする変数
+let wins = 0; // 勝った回数をカウントする変数
+
 
 // ぐー、ちょき、ぱーの画像
 const images = [
@@ -14,92 +20,13 @@ const images = [
   './img/choki.png'  // ちょきの画像
 ];
 
-// 配列の添え字を格納する入れる
+
+// 画像の配列の添え字を格納している配列
 const num = [0, 1, 2];
+
 
 // CPU 側のじゃんけん表示エリアを作成
 const opponentImage = document.createElement('img');
-
-// 関数のトリガー
-startButton.onclick = () => {
-
-  title.remove();
-  startButton.remove();
-  //scoreArea.innerText = '0 勝';
-
-  //「最初はぐーじゃんけん」の呼びかけの処理
-  signalText.innerText = '最初はぐー';
-  opponentImage.src = images[0]; // ぐーを固定化
-  opponentImage.width = "300";
-  opponentImage.height = "300";
-  signalImage.appendChild(opponentImage);
-
-  serectedAndJudgment();
-};
-
-
-// 「ぽん」の呼びかけと遊びの本体の処理
-function serectedAndJudgment() {
-
-  setTimeout(() => {
-    signalText.innerText = 'じゃんけん';
-  }, 1500);
-
-  setTimeout(() => {
-    // 相手側の表示の処理
-    let imageNo = Math.floor(Math.random() * images.length); // 画像表示時の添え字をランダムで生成
-    signalText.innerText = 'ぽん';
-    opponentImage.src = images[imageNo]; // 生成した添え字で画像を表示
-    signalImage.appendChild(opponentImage);
-
-    // 正解「〇」不正解「✕」の判定画像の表示エリアを作成
-    const judgment = document.createElement('img');
-    judgment.width = "300";
-    judgment.height = "300";
-    judgmentArea.appendChild(judgment);
-    judgment.style.display = 'none';
-
-    // 開始時の時刻をメモ
-    let startTime = Date.now();
-
-    // じゃんけんメインエリアの作成
-    for (let i = num.length - 1; i >= 0; i--) {
-      var rand = Math.floor(Math.random() * (i + 1));
-      [num[i], num[rand]] = [num[rand], num[i]]
-      let serect = document.createElement('input');
-      jankenArea.appendChild(serect);
-      serect.type = "image";
-      serect.src = images[num[i]]; // iを添え字として画像を表示
-      serect.width = "300";
-      serect.height = "300";
-      serect.onclick = () => {
-        jankenArea.children[0].disabled = true; // ぐーを一回限りのボタンに
-        jankenArea.children[1].disabled = true; // ぱーを一回限りのボタンに
-        jankenArea.children[2].disabled = true; // ちょきを一回限りのボタンに
-        if ((Date.now() - startTime) > 1000) { // 2秒以内に押せないなら時間切れ
-          judgment.style.display = '';
-          judgment.src = './img/time.png'; // 時間切れ
-        } else if (imageNo === num[i]) {
-          judgment.style.display = '';
-          judgment.src = './img/aiko.png'; // あいこ
-          // scoreArea.innerText = 
-        } else if (imageNo === 0 && num[i] === 1 || imageNo === 1 && num[i] === 2 || imageNo === 2 && num[i] === 0) {
-          judgment.style.display = '';
-          judgment.src = './img/maru.png';
-          //scoreArea.innerText = `${score} 勝`; // 勝ち
-        } else {
-          judgment.style.display = '';
-          judgment.src = './img/batu.png';
-          //scoreArea.innerText = '負け'; // 負け
-        }
-        signalText.innerText = "次！";
-        removeAllChildren(jankenArea);
-        removeAllChildren(judgmentArea);
-        serectedAndJudgment();
-      }
-    };
-  }, 2500);
-};
 
 
 /**
@@ -111,5 +38,120 @@ function removeAllChildren(element) {
     while (element.firstChild) {
       element.removeChild(element.firstChild);
     }
-  }, 1000);
+  }, 1000); // 要素を視認できるよう1秒後に処理
+};
+
+
+// じゃんけんゲームのメインの関数
+function serectAndJudgment() {
+
+  // inputの入力数値を number に変換
+  let nOT = parseFloat(numberOfTimes.value);
+
+  // 勝負の結果報告
+  if (count === nOT) {
+    setTimeout(() => {
+      alert(`${nOT}回勝負中${wins}回勝利しました！\n「タイトルへ」をクリックしてください。`);
+      signalTextArea.innerText = 'GAME OVER\n豆知識：GAME OVERは実はゲーム終了という意味合いが強い';
+      startButton.innerText = 'タイトルへ';
+      restartButton.appendChild(startButton);
+      restartButton.onclick = () => {
+        location.reload();
+      }
+    }, 1000);
+    return;
+  }
+
+  // 「じゃんけん」の呼びかけ
+  setTimeout(() => {
+    signalTextArea.innerText = 'じゃんけん';
+  }, 1500);
+
+  // この関数のメイン処理
+  setTimeout(() => {
+    // 相手側の表示の処理
+    let imageNo = Math.floor(Math.random() * images.length); // 画像表示時の添え字をランダムで生成
+    signalTextArea.innerText = 'ぽん';
+    opponentImage.src = images[imageNo]; // 生成した添え字で画像を表示
+    signalImageArea.appendChild(opponentImage);
+
+    // 正解「〇」不正解「✕」の判定画像の表示エリアを作成
+    const judgment = document.createElement('img');
+    judgment.width = "300";
+    judgment.height = "300";
+    judgmentArea.appendChild(judgment);
+    judgment.style.display = 'none';
+
+    let startTime = Date.now(); // 開始時の時刻をメモ
+
+    // じゃんけんのメインエリアの作成
+    for (let i = num.length - 1; i >= 0; i--) {
+      let rand = Math.floor(Math.random() * (i + 1));
+      [num[i], num[rand]] = [num[rand], num[i]];
+      let serect = document.createElement('input');
+      jankenArea.appendChild(serect);
+      serect.type = "image";
+      serect.src = images[num[i]]; // num[i]を添え字として画像をランダム表示
+      serect.width = "300";
+      serect.height = "300";
+      serect.onclick = () => {
+        count++; // 勝負数をカウント
+        jankenArea.children[0].disabled = true; // ぐーを一回限りのボタンに
+        jankenArea.children[1].disabled = true; // ぱーを一回限りのボタンに
+        jankenArea.children[2].disabled = true; // ちょきを一回限りのボタンに
+        if ((Date.now() - startTime) > 1000) { // 2秒以内に押せないなら時間切れ
+          judgment.style.display = '';
+          judgment.src = './img/time.png'; // 時間切れ
+        } else if (imageNo === num[i]) {
+          judgment.style.display = '';
+          judgment.src = './img/aiko.png'; // あいこ
+        } else if (imageNo === 0 && num[i] === 1 || imageNo === 1 && num[i] === 2 || imageNo === 2 && num[i] === 0) {
+          wins++; // 勝った数を記録
+          judgment.style.display = '';
+          judgment.src = './img/maru.png'; // 勝ち
+        } else {
+          judgment.style.display = '';
+          judgment.src = './img/batu.png'; // 負け
+        }
+        signalTextArea.innerText = "次！";
+        removeAllChildren(jankenArea);
+        removeAllChildren(judgmentArea);
+        removeAllChildren(signalImageArea);
+        serectAndJudgment();
+      }
+    };
+  }, 2500);
+};
+
+
+// 関数のトリガー
+startButton.onclick = () => {
+
+  let inputNumber = numberOfTimes.value;
+  if (inputNumber.length === 0) {
+    return // 数字の入力がなかったら処理を中断
+  }
+
+  // タイトルとスタートボタン、インプットエリアを削除
+  title.remove();
+  startButton.remove();
+  numberOfTimes.remove();
+
+  //「最初はぐーじゃんけん」の呼びかけの処理
+  signalTextArea.innerText = '最初はぐー';
+  opponentImage.src = images[0]; // ぐーを固定化
+  opponentImage.width = "300";
+  opponentImage.height = "300";
+  signalImageArea.appendChild(opponentImage);
+
+  // メインの関数を実行
+  serectAndJudgment();
+};
+
+
+// 入力欄でEnterキーが押されてもゲームを実行
+numberOfTimes.onkeydown = event => {
+  if (event.key === 'Enter') {
+    startButton.onclick();
+  }
 };
