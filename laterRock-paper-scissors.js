@@ -2,6 +2,7 @@
 const title = document.getElementById('title');
 const numberOfTimes = document.getElementById('number-of-times');
 const startButton = document.getElementById('start-button');
+const ruleArea = document.getElementById('rule-area');
 const signalTextArea = document.getElementById('signal-text-area');
 const signalImageArea = document.getElementById('signal-image-area');
 const judgmentArea = document.getElementById('judgment-area');
@@ -56,7 +57,7 @@ function serectAndJudgment() {
       startButton.innerText = 'タイトルへ';
       restartButton.appendChild(startButton);
       restartButton.onclick = () => {
-        location.reload();
+        location.reload(); // リロードでタイトルへ戻る
       }
     }, 1000);
     return;
@@ -79,21 +80,21 @@ function serectAndJudgment() {
     const judgment = document.createElement('img');
     judgment.width = "300";
     judgment.height = "300";
-    judgmentArea.appendChild(judgment);
     judgment.style.display = 'none';
+    judgmentArea.appendChild(judgment);
 
     let startTime = Date.now(); // 開始時の時刻をメモ
 
     // じゃんけんのメインエリアの作成
     for (let i = num.length - 1; i >= 0; i--) {
-      let rand = Math.floor(Math.random() * (i + 1));
-      [num[i], num[rand]] = [num[rand], num[i]];
       let serect = document.createElement('input');
-      jankenArea.appendChild(serect);
-      serect.type = "image";
-      serect.src = images[num[i]]; // num[i]を添え字として画像をランダム表示
+      let rand = Math.floor(Math.random() * (i + 1));
+      [num[i], num[rand]] = [num[rand], num[i]]; // シャッフル
       serect.width = "300";
       serect.height = "300";
+      serect.type = "image";
+      serect.src = images[num[i]]; // num[i]を添え字として画像をランダム表示
+      jankenArea.appendChild(serect);
       serect.onclick = () => {
         count++; // 勝負数をカウント
         jankenArea.children[0].disabled = true; // ぐーを一回限りのボタンに
@@ -132,8 +133,9 @@ startButton.onclick = () => {
     return // 数字の入力がなかったら処理を中断
   }
 
-  // タイトルとスタートボタン、インプットエリアを削除
+  // タイトルとルール文、スタートボタン、インプットエリアを削除
   title.remove();
+  ruleArea.remove();
   startButton.remove();
   numberOfTimes.remove();
 
