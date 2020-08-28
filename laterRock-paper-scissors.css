@@ -3,31 +3,41 @@ html {
 }
 
 body {
-  background: linear-gradient(to bottom right, royalblue, #04a6eb, rgba(65, 201, 225, 0.904), #fdffff);
-  color: #fdffff;
-  font-family: "Montserrat","游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
+  color: skyblue;
   text-align: center;
-  background-image: url(./img/summer.png);
   background-size: cover;
+  background-image: url(./img/summer.png);
+  font-family: "Montserrat","游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
 }
 
-.text {
+.title {
   font-size: 80px;
 }
 
 .input {
   font-size: 30px;
   vertical-align: middle;
+  font-family: "Montserrat","游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
 }
 
 .button {
-  font-size: 24px;
+  font-size: 30px;
   vertical-align: middle;
+  background-color: bisque;
+  font-family: "Montserrat","游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
 }
 
-.judgment {
-  position: absolute;
+.rule {
+  font-size: 30px;
+}
+
+.text {
+  font-size: 50px;
+}
+
+.judgment img {
   left: 50%;
+  width: auto;
+  position: absolute;
   transform: translate(-50%,-50%);
 }
-
