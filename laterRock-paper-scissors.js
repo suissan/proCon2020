@@ -132,8 +132,8 @@ function serectAndJudgment() {
 startButton.onclick = () => {
 
   let inputNumber = numberOfTimes.value;
-  if (inputNumber.length === 0 || inputNumber === '0') {
-    return // 入力値が半角数字と0だった場合は処理を中断
+  if (inputNumber === '0' || inputNumber.length === 0) {
+    return // 入力値が0や入力がない場合は処理を中断
   }
 
   title.remove(); // タイトルを削除
