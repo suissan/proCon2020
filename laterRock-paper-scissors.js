@@ -156,6 +156,6 @@ startButton.onclick = () => {
 // 入力欄でEnterキーが押されてもゲームを実行
 numberOfTimes.onkeydown = event => {
   if (event.key === 'Enter') {
-    startButton.onclick();
+    startButton.onclick(); // エンタークリック
   }
 };
