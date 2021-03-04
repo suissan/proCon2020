@@ -41,3 +41,14 @@ body {
   position: absolute;
   transform: translate(-50%,-50%);
 }
+
+@media screen and (min-width: 800px){
+  .wrapper {
+      width: 70%;
+  }
+}
+@media screen and (max-width: 800px){
+  .wrapper {
+      width: 90%;
+  }
+}
